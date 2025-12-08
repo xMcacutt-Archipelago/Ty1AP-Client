@@ -1,18 +1,25 @@
 # Ty1 - Archipelago Client Plugin
 
-This plugin is based on the TygerFramework created by Kana (Elusive Fluffy). It is the Ty1 implementation of a client to connect to an archipelago randomiser server and handle items and checks.
+This is a TygerFramework (by Kana - Elusive Fluffy) based plugin for Ty the Tasmanian Tiger which implements Archipelago.gg Multiworld Randomizer support to the game.
 
-For the APWorld for Ty the Tasmanian Tiger see [Ty the Tasmanian Tiger APWorld](https://github.com/xMcacutt/Archipelago-TyTheTasmanianTiger/releases/latest)
+For the apworld for Ty the Tasmanian Tiger see [Ty the Tasmanian Tiger apworld](https://github.com/xMcacutt/Archipelago-TyTheTasmanianTiger/releases/latest)
 
 ## Setup
 
-To set up, first you'll need to install TygerFramework as well as TygerMemory. These are simple dlls that sit in your Ty directory. 
+### Automatic Installation - STRONGLY RECOMMENDED
 
-As of version 1.1.7, this can be done using the [Ty Mod Manager](https://github.com/xMcacutt/ty1_mod_manager/tree/master). Simply find the mod in the mod directory and hit install. Alternatively you can download the zip from releases and add a custom mod in the manager.
+The [Ty Mod Manager](https://github.com/xMcacutt/ty_mod_manager) automatically handles setup of mods and their dependencies and keeps them up to date so you don't have to. Follow the instructions on the mod manager's readme to install and set up Ty1 in the app.
 
-#### Manual Installation
+Once you're set up, head over to the Mod Directory page in the left menu and install Ty1-AP-Client. All future updates can be handled by navigating to the same page and pressing the update button. Auto updates are not supported in the mod manager to avoid breaking changes from being accidentally pushed.
+
+Back in the My Mods page, simply activate the Archipelago mod and hit launch.
+Next, continue to information on [Connecting](https://github.com/xMcacutt-Archipelago/Ty1AP-Client/?tab=readme-ov-file#connecting)
+
+### Manual Installation
 
 **To install MANUALLY** information setup can be found at the respective pages below
+
+To set up, first you'll need to install the TygerFramework mod loader dll and add TygerMemory as a dependency. 
 
 - [TygerFramework](https://github.com/ElusiveFluffy/TygerFramework)
 
@@ -22,9 +29,7 @@ Next, you'll need to add the Ty1 AP Client dll to your plugins directory that sh
 
 Once you launch the game, the client should be up and running.
 
-Optionally, you can place the Patch_PC.rkv from the releases page into your Ty folder to have some extra Archipelago branding.
-
-**as of v1.1.4, libcrypto and libssl are no longer required as dependencies**
+You'll also need to place the Patch_PC.rkv from the releases page into your Ty folder (the same folder as TY.exe).
 
 ## Connecting
 
