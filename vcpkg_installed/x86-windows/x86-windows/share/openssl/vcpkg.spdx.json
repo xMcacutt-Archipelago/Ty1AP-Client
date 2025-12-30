@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/openssl-x86-windows-3.4.1-3d834c12-305c-43f5-86c6-440da594402a",
-  "name": "openssl:x86-windows@3.4.1 700522e44421a4a5b97d5b4d01c0b770803d04e4131d306f275b1d8c8604d339",
+  "documentNamespace": "https://spdx.org/spdxdocs/openssl-x86-windows-3.4.1-26b1b3b4-9645-4e14-942a-f62515b19b74",
+  "name": "openssl:x86-windows@3.4.1 b8df469e625cfdcb629a932d6889d068fe9821dd61ab0b1fa1ec44e4a9bd499c",
   "creationInfo": {
     "creators": [
-      "Tool: vcpkg-2025-04-07-b8b513ba8778c918cff49c3e837aae5999d5d2aa"
+      "Tool: vcpkg-2024-12-09-1005b78fa1bf1dde1a20c2734cba4ea61ca94d9a"
     ],
-    "created": "2025-04-09T06:11:02Z"
+    "created": "2025-04-28T04:13:50Z"
   },
   "relationships": [
     {
@@ -198,11 +198,6 @@
       "relatedSpdxElement": "SPDXRef-port"
     },
     {
-      "spdxElementId": "SPDXRef-file-15",
-      "relationshipType": "DEPENDENCY_MANIFEST_OF",
-      "relatedSpdxElement": "SPDXRef-port"
-    },
-    {
       "spdxElementId": "SPDXRef-file-16",
       "relationshipType": "CONTAINED_BY",
       "relatedSpdxElement": "SPDXRef-port"
@@ -234,7 +229,7 @@
     {
       "name": "openssl:x86-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "700522e44421a4a5b97d5b4d01c0b770803d04e4131d306f275b1d8c8604d339",
+      "versionInfo": "b8df469e625cfdcb629a932d6889d068fe9821dd61ab0b1fa1ec44e4a9bd499c",
       "downloadLocation": "NONE",
       "licenseConcluded": "Apache-2.0",
       "licenseDeclared": "NOASSERTION",
@@ -258,7 +253,7 @@
   ],
   "files": [
     {
-      "fileName": "./cmake-config.patch",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/cmake-config.patch",
       "SPDXID": "SPDXRef-file-0",
       "checksums": [
         {
@@ -270,7 +265,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./command-line-length.patch",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/command-line-length.patch",
       "SPDXID": "SPDXRef-file-1",
       "checksums": [
         {
@@ -282,7 +277,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./install-pc-files.cmake",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/install-pc-files.cmake",
       "SPDXID": "SPDXRef-file-2",
       "checksums": [
         {
@@ -294,7 +289,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./openssl.pc.in",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/openssl.pc.in",
       "SPDXID": "SPDXRef-file-3",
       "checksums": [
         {
@@ -306,7 +301,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./portfile.cmake",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/portfile.cmake",
       "SPDXID": "SPDXRef-file-4",
       "checksums": [
         {
@@ -318,7 +313,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./script-prefix.patch",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/script-prefix.patch",
       "SPDXID": "SPDXRef-file-5",
       "checksums": [
         {
@@ -330,7 +325,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./unix/android-cc.patch",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/unix/android-cc.patch",
       "SPDXID": "SPDXRef-file-6",
       "checksums": [
         {
@@ -342,7 +337,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./unix/configure",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/unix/configure",
       "SPDXID": "SPDXRef-file-7",
       "checksums": [
         {
@@ -354,7 +349,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./unix/move-openssldir.patch",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/unix/move-openssldir.patch",
       "SPDXID": "SPDXRef-file-8",
       "checksums": [
         {
@@ -366,7 +361,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./unix/no-empty-dirs.patch",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/unix/no-empty-dirs.patch",
       "SPDXID": "SPDXRef-file-9",
       "checksums": [
         {
@@ -378,7 +373,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./unix/no-static-libs-for-shared.patch",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/unix/no-static-libs-for-shared.patch",
       "SPDXID": "SPDXRef-file-10",
       "checksums": [
         {
@@ -390,7 +385,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./unix/portfile.cmake",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/unix/portfile.cmake",
       "SPDXID": "SPDXRef-file-11",
       "checksums": [
         {
@@ -402,7 +397,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./unix/remove-deps.cmake",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/unix/remove-deps.cmake",
       "SPDXID": "SPDXRef-file-12",
       "checksums": [
         {
@@ -414,7 +409,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./usage",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/usage",
       "SPDXID": "SPDXRef-file-13",
       "checksums": [
         {
@@ -426,7 +421,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./vcpkg-cmake-wrapper.cmake.in",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/vcpkg-cmake-wrapper.cmake.in",
       "SPDXID": "SPDXRef-file-14",
       "checksums": [
         {
@@ -438,7 +433,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./vcpkg.json",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/vcpkg.json",
       "SPDXID": "SPDXRef-file-15",
       "checksums": [
         {
@@ -450,7 +445,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./windows/install-layout.patch",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/windows/install-layout.patch",
       "SPDXID": "SPDXRef-file-16",
       "checksums": [
         {
@@ -462,7 +457,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./windows/install-pdbs.patch",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/windows/install-pdbs.patch",
       "SPDXID": "SPDXRef-file-17",
       "checksums": [
         {
@@ -474,7 +469,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./windows/portfile.cmake",
+      "fileName": "./C:/Users/admin/AppData/Local/vcpkg/registries/git-trees/d740be74dc7940c2b88e69db0b2d181024e1028c/windows/portfile.cmake",
       "SPDXID": "SPDXRef-file-18",
       "checksums": [
         {

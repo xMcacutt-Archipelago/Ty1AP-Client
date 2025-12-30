@@ -309,7 +309,6 @@ void GameHandler::WatchMemory() {
 }
 
 void GameHandler::SetupOnConnect() {
-
 	std::thread t(MulTyHandler::Run);
 	t.detach();
 

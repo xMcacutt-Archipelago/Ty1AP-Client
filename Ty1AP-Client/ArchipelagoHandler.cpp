@@ -88,7 +88,16 @@ void ArchipelagoHandler::ConnectAP(LoginWindow* login)
     }
     #endif
 
-    ap.reset(new APClient(uuid, GAME_NAME, uri.empty() ? APClient::DEFAULT_URI : uri, CERT_STORE));
+    API::LogPluginMessage(uuid, LogLevel::Info);
+    API::LogPluginMessage(GAME_NAME, LogLevel::Info);
+    API::LogPluginMessage(CERT_STORE, LogLevel::Info);
+    API::LogPluginMessage(uri, LogLevel::Info);
+	API::LogPluginMessage("Creating APClient...\n", LogLevel::Info);
+    auto client = new APClient(uuid, GAME_NAME, uri.empty() ? APClient::DEFAULT_URI : uri, CERT_STORE);
+    if (client == nullptr)
+        API::LogPluginMessage("Why is this null????");
+    return;  
+    ap.reset(client);
     polling = true;
     API::LogPluginMessage("Connecting to AP, server " + uri + "\n", LogLevel::Info);
     SetAPStatus("Connecting", 1);
@@ -293,6 +302,8 @@ void ArchipelagoHandler::ConnectAP(LoginWindow* login)
                         std::string source = data["source"].is_string() ? data["source"].get<std::string>().c_str() : "???";
                         std::string cause = data["cause"].is_string() ? data["cause"].get<std::string>().c_str() : "???";
                         LoggerWindow::Log("[color = FFFFFFFF]" + cause);
+                        if (GameState::onLoadScreenOrMainMenu())
+                            return;
                         someoneElseDied = true;
                         Hero::kill();
                     }
