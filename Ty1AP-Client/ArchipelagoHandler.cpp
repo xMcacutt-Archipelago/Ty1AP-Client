@@ -40,7 +40,7 @@ std::vector<std::string> ArchipelagoHandler::koalaMapping;
 std::map<int, double> ArchipelagoHandler::koalaConnected;
 int ArchipelagoHandler::koalaIndex = -1;
 std::string ArchipelagoHandler::mulTyName = "";
-std::unique_ptr<APClient> ArchipelagoHandler::ap;
+APClient* ArchipelagoHandler::ap;
 std::string ArchipelagoHandler::seed;
 
 bool isEqual(double a, double b)
@@ -63,51 +63,34 @@ void ArchipelagoHandler::DisconnectAP() {
 
 void ArchipelagoHandler::ConnectAP(LoginWindow* login)
 {
-    ap.reset();
+    polling = true;
 
     std::string uri = login->server;
-    is_ws = uri.rfind("ws://", 0) == 0;
-    is_wss = uri.rfind("wss://", 0) == 0;
-
     uuid = ap_get_uuid(UUID_FILE,
         uri.empty() ? APClient::DEFAULT_URI :
         is_ws ? uri.substr(5) :
         is_wss ? uri.substr(6) :
         uri);
 
-    deathlink = false;
-
-    #ifdef __EMSCRIPTEN__
-        if (is_https && is_ws) {
-            EM_ASM({
-                throw 'WS not supported in HTTPS context, only WSS is allowed';
-                });
-        }
-        else if (is_https && !is_wss) {
-            uri = "wss://" + uri;
+    if (ap != nullptr) {
+        ap->reset();
     }
-    #endif
+
+    deathlink = false;
 
     API::LogPluginMessage(uuid, LogLevel::Info);
     API::LogPluginMessage(GAME_NAME, LogLevel::Info);
     API::LogPluginMessage(CERT_STORE, LogLevel::Info);
     API::LogPluginMessage(uri, LogLevel::Info);
 	API::LogPluginMessage("Creating APClient...\n", LogLevel::Info);
-    auto client = new APClient(uuid, GAME_NAME, uri.empty() ? APClient::DEFAULT_URI : uri, CERT_STORE);
-    if (client == nullptr)
-        API::LogPluginMessage("Why is this null????");
-    return;  
-    ap.reset(client);
-    polling = true;
+    ap = new APClient(uuid, GAME_NAME, uri);
+    ap_sync_queued = false;
     API::LogPluginMessage("Connecting to AP, server " + uri + "\n", LogLevel::Info);
     SetAPStatus("Connecting", 1);
-
-    ap_sync_queued = false;
     ap->set_socket_connected_handler([login]() {
         login->SetMessage("Connected, authenticating...");
         SetAPStatus("Authenticating", 1);
     });
-    
     ap->set_socket_disconnected_handler([login]() {
         login->SetMessage("");
         LoggerWindow::Log("Disconnected");
@@ -120,6 +103,20 @@ void ArchipelagoHandler::ConnectAP(LoginWindow* login)
             GameHandler::SetLoadActive(false);
         else
             GameState::forceMainMenu();
+    });
+    connect_error_count = 0;
+    ap->set_socket_error_handler([](const std::string& error) {
+        connect_error_count++;
+        if (is_https && !is_wss) {
+            if (connect_error_count == 2) {
+                API::LogPluginMessage("Error: could not connect to AP server!\nPlease check if the room is active and the port is correct.");
+            }
+            else if (connect_error_count > 2) {
+                DisconnectAP();
+            }
+        }
+        else if (!error.empty() && error != "Unknown")
+                    printf("%s\n", error.c_str());
     });
     ap->set_room_info_handler([login]() {
         login->SetMessage("Room info received");

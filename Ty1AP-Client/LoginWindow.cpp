@@ -20,7 +20,13 @@ void LoginWindow::Draw(int outerWidth, int outerHeight, float uiScale) {
         if (ImGui::Button("Connect")) {
             if (strlen(server) > 0 && strlen(slot) > 0) {
                 SaveLoginData(server, slot, password, mulTyName);
-                ArchipelagoHandler::ConnectAP(this);
+                try {
+                    ArchipelagoHandler::ConnectAP(this);
+                }
+				catch (const std::exception& e) {
+					API::LogPluginMessage(std::string("Connection failed: ") + e.what());
+					return;
+				}
                 SetMessage("Connecting to " + std::string(server) + "...");
             }
             else {

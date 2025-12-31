@@ -575,10 +575,15 @@ void GameHandler::OnSpawnpointSet() {
 }
 
 void GameHandler::SetLoadActive(bool value) {
-	if (!GameState::onLoadScreenOrMainMenu())
-		return;
-	auto menuAddr = *(int*)(Core::moduleBase + 0x286644);
-	*(bool*)(menuAddr + 0x164) = value;
+	try {
+		if (!GameState::onLoadScreenOrMainMenu())
+			return;
+		auto menuAddr = *(int*)(Core::moduleBase + 0x286644);
+		*(bool*)(menuAddr + 0x164) = value;
+	}
+	catch (const std::exception& e) {
+		API::LogPluginMessage(std::string("Error setting load active: ") + e.what());
+	}
 }
 
 void GameHandler::OnDeath() {

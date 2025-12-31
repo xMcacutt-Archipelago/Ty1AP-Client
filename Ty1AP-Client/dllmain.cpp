@@ -19,9 +19,15 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 }
 
 void TickBeforeGame(float deltaSeconds) {
-    ArchipelagoHandler::Poll();
-    MulTyHandler::InterpolateAndDraw();
-    GUI::DrawUI();
+    try {
+        ArchipelagoHandler::Poll();
+        MulTyHandler::InterpolateAndDraw();
+        GUI::DrawUI();
+    }
+    catch (const std::exception& e) {
+        API::LogPluginMessage(std::string("Connection failed: ") + e.what());
+        return;
+    }
 }
 
 void OnTyInit() {

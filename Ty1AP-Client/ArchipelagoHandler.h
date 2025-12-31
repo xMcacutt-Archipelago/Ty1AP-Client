@@ -108,7 +108,7 @@ public:
 	static std::string seed;
 	static std::string slot;
 private:
-	static std::unique_ptr<APClient> ap;
+	static APClient* ap;
 	static void SetAPStatus(std::string status, char important);
 };
 
