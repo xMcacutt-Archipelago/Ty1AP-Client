@@ -194,7 +194,7 @@ void ItemHandler::HandleItem(APClient::NetworkItem item)
 		}).detach();
 	}
 	else if (item.item == 0x8750094) { // Exit Trap
-		if (Level::getCurrentLevel() != LevelCode::Z1)
+		if (Level::getCurrentLevel() != LevelCode::Z1 && !GameState::onLoadScreenOrMainMenu())
 			Level::changeLevel(LevelCode::Z1);
 	}
 	SaveDataHandler::SaveGame();

@@ -1,6 +1,3 @@
-[submodule "wswrap"]
-	path = wswrap
-	url = https://github.com/black-sliver/wswrap.git
 [submodule "imgui"]
 	path = imgui
 	url = https://github.com/ocornut/imgui
@@ -13,3 +10,6 @@
 [submodule "TygerFramework"]
 	path = TygerFramework
 	url = https://github.com/ElusiveFluffy/TygerFramework
+[submodule "wswrap"]
+	path = wswrap
+	url = https://github.com/black-sliver/wswrap

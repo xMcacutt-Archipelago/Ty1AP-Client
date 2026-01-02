@@ -70,7 +70,7 @@ void GUI::DrawUI() {
     ImGui::NewFrame();
     ImGui::SetNextWindowPos(ImVec2(windowWidth - (114 * uiScale), 0));
     auto popupId = "APMenu";
-    ImGui::Begin("AP Button", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize);
+    ImGui::Begin("AP Button", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar);
 
     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.f, 0.f, 0.f, 0.f));
     ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.f, 0.f, 0.f, 0.f));

@@ -61,7 +61,7 @@ extern "C" __declspec(dllexport) bool TygerFrameworkPluginInitialize(TygerFramew
 extern "C" __declspec(dllexport) void TygerFrameworkPluginRequiredVersion(TygerFrameworkPluginVersion * version) {
     version->Major = 1;
     version->Minor = 1;
-    version->Patch = 0;
+    version->Patch = 3;
     version->CompatibleGames = { 1 };
 }
 

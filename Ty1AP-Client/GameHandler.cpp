@@ -298,10 +298,15 @@ void GameHandler::WatchMemory() {
 		uintptr_t addr = Hero::isBull() ? 0x254564 : 0x27158C;
 		auto state = *(uintptr_t*)(Core::moduleBase + addr);
 		if (!ItemHandler::isSlowTrapped && state == (int)TyState::Running) {
-			if (SaveDataHandler::saveData.CurrentRang == Rang::Chronorang)
-				*(float*)(Core::moduleBase + 0x271C3C) = 12.0f;
-			else
-				*(float*)(Core::moduleBase + 0x271C3C) = 10.0f;
+			if (SaveDataHandler::saveData.CurrentRang == Rang::Chronorang
+				|| (Rang)*(int*)(Core::moduleBase + 0x264c48) == Rang::Chronorang) {
+				Hero::setRunSpeed(14.0f);
+				Hero::setSwimSpeed(25.0f);
+			}
+			else {
+				Hero::setRunSpeed(10.0f);
+				Hero::setSwimSpeed(20.0f);
+			}
 		}
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));

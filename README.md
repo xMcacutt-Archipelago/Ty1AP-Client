@@ -21,7 +21,7 @@ Next, continue to information on [Connecting](https://github.com/xMcacutt-Archip
 
 To set up, first you'll need to install the TygerFramework mod loader dll and add TygerMemory as a dependency. 
 
-- [TygerFramework](https://github.com/ElusiveFluffy/TygerFramework)
+- [TygerFramework](https://github.com/ElusiveFluffy/TygerFramework) VERSION 1.1.3+
 
 - [TygerMemory](https://github.com/xMcacutt/TygerMemory1) VERSION 1.0.3+
 
