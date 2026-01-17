@@ -18,6 +18,7 @@ class GUI
 public:
 	static inline bool init;
 	static inline bool isShown;
+	static inline bool filterToSelf = false;
 	static std::vector<std::unique_ptr<Window>> windows;
 	static void Initialize();
 	static void DrawUI();

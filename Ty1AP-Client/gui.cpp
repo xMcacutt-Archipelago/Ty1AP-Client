@@ -105,6 +105,9 @@ void GUI::DrawUI() {
                 }
             }
         }
+        if (ImGui::MenuItem("Filter Log")) {
+			GUI::filterToSelf = !GUI::filterToSelf;
+        }
         ImGui::EndPopup();
     }
     ImGui::End();

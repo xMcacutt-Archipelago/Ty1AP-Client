@@ -245,6 +245,15 @@ void ArchipelagoHandler::ConnectAP(LoginWindow* login)
         LoggerWindow::Log(msg);
     });
     ap->set_print_json_handler([](const std::list<APClient::TextNode>& msg) {
+        if (GUI::filterToSelf)
+		{
+            bool hasSelf = false;
+			for (const auto& node : msg) 
+				if (node.player == ap->get_player_number()) 
+                    hasSelf = true;
+            if (!hasSelf)
+			    return;
+		}
         LoggerWindow::Log(ap->render_json(msg, APClient::RenderFormat::TEXT));
      });
     ap->set_bounced_handler([](const json& cmd) {
