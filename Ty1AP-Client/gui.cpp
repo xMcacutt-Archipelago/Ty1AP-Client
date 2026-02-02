@@ -9,6 +9,22 @@ std::map<std::string, unsigned int> GUI::icons;
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 bool GUI::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+    if (msg == WM_KEYDOWN && wParam == 0x54) {
+        for (auto& window : windows) {
+            if (auto Lwindow = dynamic_cast<TrackerWindow*>(window.get())) {
+                Lwindow->visibleOverride = true;
+                break;
+            }
+        }
+    }
+    if (msg == WM_KEYUP && wParam == 0x54) {
+        for (auto& window : windows) {
+            if (auto Lwindow = dynamic_cast<TrackerWindow*>(window.get())) {
+                Lwindow->visibleOverride = false;
+                break;
+            }
+        }
+    }
     if (API::DrawingGUI())
         if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
             return true;
@@ -100,7 +116,7 @@ void GUI::DrawUI() {
         if (ImGui::MenuItem("Tracker Window")) {
             for (auto& window : windows) {
                 if (auto info = dynamic_cast<TrackerWindow*>(window.get())) {
-                    info->isVisible = !info->isVisible;
+                    info->ToggleVisibility();
                     break;
                 }
             }

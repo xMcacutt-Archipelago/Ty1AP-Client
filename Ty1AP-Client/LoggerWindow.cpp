@@ -96,23 +96,8 @@ void LoggerWindow::Draw(int outerWidth, int outerHeight, float uiScale) {
 
 // Function to remove color tags from the text
 std::string LoggerWindow::RemoveColorTags(const std::string& text) {
-    std::string result;
-    result.reserve(text.size());
-
-    bool insideTag = false;
-    for (size_t i = 0; i < text.size(); ++i) {
-        if (text[i] == '[') {
-            insideTag = true;
-        }
-        else if (text[i] == ']') {
-            insideTag = false;
-        }
-        else if (!insideTag) {
-            result += text[i];
-        }
-    }
-
-    return result;
+    static const std::regex colorTag(R"(\[color\s*=\s*[0-9a-fA-F]{8}\])");
+    return std::regex_replace(text, colorTag, "");
 }
 
 

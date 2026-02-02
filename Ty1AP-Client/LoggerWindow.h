@@ -1,6 +1,7 @@
 #pragma once
 #include "Window.h"
 #include "gui.h"
+#include <regex>
 
 class LoggerWindow : public Window
 {

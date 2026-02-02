@@ -3,10 +3,12 @@
 
 void TrackerWindow::ToggleVisibility() {
     isVisible = !isVisible;
+    if (!isVisible)
+        LoggerWindow::Log("When the tracker is toggled off, you can view it while holding T.");
 }
 
 void TrackerWindow::Draw(int outerWidth, int outerHeight, float uiScale) {
-    if (!isVisible)
+    if (!isVisible && !visibleOverride)
         return;
 
     if (GameState::onLoadScreenOrMainMenu())
