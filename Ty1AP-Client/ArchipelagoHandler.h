@@ -24,8 +24,6 @@
 #define PRId64 "I64d"
 #endif
 
-#define VERSION_TUPLE {0,5,1}
-
 #ifdef __EMSCRIPTEN__
 #define VIRTUAL_HOME_DIR "/settings"
 #define OLD_DATAPACKAGE_CACHE "/settings/datapackage.json"

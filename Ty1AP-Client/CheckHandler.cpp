@@ -417,13 +417,6 @@ void CheckHandler::OnCollectCog(int cogIndex) {
 	auto adjustedLevel = level - 4;
 	adjustedLevel -= (adjustedLevel > 3) + (adjustedLevel > 7);
 	ArchipelagoHandler::Check(0x8750148 + static_cast<int64_t>(adjustedLevel) * 0xA + static_cast<int64_t>(cogIndex));
-	auto levelCogCount = std::count(
-		SaveDataHandler::saveData.LevelData[level].GoldenCogs,
-		SaveDataHandler::saveData.LevelData[level].GoldenCogs + 10, true
-	);
-	API::LogPluginMessage(std::to_string(level) + " " + std::to_string(levelCogCount));
-	if (levelCogCount == 10) 
-		ArchipelagoHandler::Check(0x87501A2 + static_cast<int64_t>(adjustedLevel));
 	SaveDataHandler::SaveGame();
 }
 

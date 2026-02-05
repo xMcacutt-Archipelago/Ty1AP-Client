@@ -84,15 +84,6 @@ void ItemHandler::HandleItem(APClient::NetworkItem item)
 			if (*(int*)(Core::moduleBase + 0x27041C) != 0)
 				*(int*)(*(int*)(Core::moduleBase + 0x270420) + 0x68) = 0x2;
 	}
-	else if (item.item >= 0x8750020 && item.item < 0x8750030) {
-		SaveDataHandler::saveData.BilbyCount[item.item - 0x8750020]++;
-		if (SaveDataHandler::saveData.BilbyCount[item.item - 0x8750020] == 5) {
-			auto level = item.item - 0x8750020;
-			auto adjustedLevel = level - 4;
-			adjustedLevel -= (adjustedLevel > 3) + (adjustedLevel > 7);
-			ArchipelagoHandler::Check(0x8750270 + adjustedLevel);
-		}
-	}
 	else if (item.item >= 0x8750050 && item.item < 0x8750060) {
 		SaveDataHandler::saveData.Talismans[item.item - 0x8750050] = true;
 		if (item.item - 0x8750050 < 3)

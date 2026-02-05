@@ -18,11 +18,9 @@ void TrackerWindow::Draw(int outerWidth, int outerHeight, float uiScale) {
     auto windowHeight = 340 * uiScale;
     auto iconSize = 48 * uiScale;
     auto padding = 10 * uiScale;
-    ImGui::SetNextWindowPos(ImVec2(outerWidth - padding - windowWidth, outerHeight - padding - windowHeight), ImGuiCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(windowWidth, windowHeight), ImGuiCond_Always);
     ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0, 0, 0, 0.5));
     ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(6.0f * uiScale, 4.5 * uiScale));
-    ImGui::Begin(name.c_str(), nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar);
+    ImGui::Begin(name.c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar);
     ImGui::SetWindowFontScale(uiScale + 0.3f);
 
     ImVec2 cursorPos = ImGui::GetCursorScreenPos();
@@ -81,19 +79,6 @@ void TrackerWindow::Draw(int outerWidth, int outerHeight, float uiScale) {
         auto brightness = b ? 0.7f : 0.2f;
         tintColor = ImVec4(brightness, brightness, brightness, 1.0f);
         ImGui::ImageWithBg((ImTextureID)(intptr_t)GUI::icons["stopwatch"], ImVec2(iconSize, iconSize), ImVec2(0, 0), ImVec2(1, 1), ImVec4(0, 0, 0, 0), tintColor);
-        ImGui::SameLine();
-    }
-
-    ImGui::NewLine();
-
-    for (int i : indices) {
-        cursorPos = ImGui::GetCursorScreenPos();
-        tintColor = ImVec4(0.5, 0.5, 0.5, 1.0f);
-        ImGui::ImageWithBg((ImTextureID)(intptr_t)GUI::icons["bilby"], ImVec2(iconSize, iconSize), ImVec2(0, 0), ImVec2(1, 1), ImVec4(0, 0, 0, 0), tintColor);
-        textSize = ImGui::CalcTextSize(std::to_string(SaveDataHandler::saveData.BilbyCount[i]).c_str());
-        textPos = ImVec2(cursorPos.x + (iconSize - textSize.x) * 0.5f,
-            cursorPos.y + (iconSize - textSize.y) * 0.5f);
-        drawList->AddText(textPos, IM_COL32(255, 255, 255, 255), std::to_string(SaveDataHandler::saveData.BilbyCount[i]).c_str());
         ImGui::SameLine();
     }
 
@@ -211,7 +196,15 @@ void TrackerWindow::Draw(int outerWidth, int outerHeight, float uiScale) {
     brightness = SaveDataHandler::saveData.ArchAttributeData.GotChronorang ? 0.7f : 0.2f;
     tintColor = ImVec4(brightness, brightness, brightness, 1.0f);
     ImGui::ImageWithBg((ImTextureID)(intptr_t)GUI::icons["chrono"], ImVec2(iconSize, iconSize), ImVec2(0, 0), ImVec2(1, 1), ImVec4(0, 0, 0, 0), tintColor);
-
+    
+    ImVec2 windowSize = ImGui::GetWindowSize();
+    ImGui::SetWindowPos(
+        ImVec2(
+            (outerWidth - windowSize.x) - padding,
+            (outerHeight - windowSize.y) - padding
+        ),
+        ImGuiCond_Always
+    );
 
     ImGui::End();
     ImGui::PopStyleVar();

@@ -61,8 +61,6 @@ In Ty-AP the following locations are considered checks by default
 
 - All 90 Golden Cogs
 
-- Cog completion for each level (find all 10 cogs)
-
 - All 45 Bilbies
 
 - Bilby completion for finding each level's 5 bilbies throughout the world
@@ -136,10 +134,6 @@ These thunder eggs are saved separately into the save data and can be tracked wi
 #### Golden Cogs
 
 Golden cogs are stored similarly to thunder eggs. They can be redeemed for technorang checks in Julius' lab in Rainbow Cliffs. You will need to redeem multiple times if you have a high enough cog count. The amount of cogs required for each stage is set using "Cog Gating".
-
-#### Bilbies
-
-When you receive a bilby, it will be named Bilby - LEVEL NAME. This will save a bilby to the save data separately from the normal save data. Once you have found or been given 5 bilbies for a level, you will automatically be given a thunder egg matching that level's vanilla hub type.
 
 #### Stopwatches
 
