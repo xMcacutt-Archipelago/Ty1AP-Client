@@ -52,6 +52,11 @@ void ItemHandler::HandleItem(APClient::NetworkItem item)
 	else if (item.item == 0x8750003) {
 		SaveDataHandler::saveData.GoldenCogCount++;
 	}
+	else if (item.item >= 0x8750020 && item.item < 0x8750030) {
+		SaveDataHandler::saveData.BilbiesActive[item.item - 0x8750020] = true;
+		if (Level::getCurrentLevel() == static_cast<LevelCode>(item.item - 0x8750020))
+			*(int*)(Core::moduleBase + 0x25357C) = 0x1;
+	}
 	else if (item.item == 0x8750071) {
 		SaveDataHandler::saveData.ProgressiveLevel++;
 		HandleProgressiveLevel();

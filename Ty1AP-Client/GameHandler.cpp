@@ -512,6 +512,8 @@ void GameHandler::OnEnterLevel() {
 	LocationHandler::HandleStoredCheckedLocations();
 
 	auto levelId = Level::getCurrentLevel();
+	*(int*)(Core::moduleBase + 0x25357C) = SaveDataHandler::saveData.BilbiesActive[(int)levelId] ? 1 : 0;
+
 	ArchipelagoHandler::SendLevel(static_cast<int>(levelId));
 
 	if (levelId == LevelCode::A3)

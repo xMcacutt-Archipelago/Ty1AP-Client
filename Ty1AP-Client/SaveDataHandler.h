@@ -46,6 +46,7 @@ struct ExtendedSaveData {
 	short ProgressiveLevel;
 	::AttributeData ArchAttributeData;
 	int LastItemIndex;
+	bool BilbiesActive[24];
 };
 
 class SaveDataHandler

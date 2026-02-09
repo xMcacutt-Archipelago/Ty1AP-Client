@@ -87,6 +87,8 @@ There are 15 attributes in the game. These are the rangs and abillities that can
 
 For each attribute its unlock to grant the check varies. Using scalesanity, you can get the extra health paw and its corresponding check. To get the check, you must collect all 25 rainbow scales in Rainbow Cliffs. Swim and Dive are split such that speaking to Rex in Ship Rex grants the Swim check, while speaking to Rex in Bridge on the River Ty grants the Dive check. On getting an attribute check, you will not receive the attribute.
 
+---
+
 ### Items
 
 Receiving items in an ap world will not lead to items being collected in the Ty world. Instead, it will give an item which is saved separately into the save data. These items can be tracked using the built in tracker which is opened while not on the main menu.
@@ -112,6 +114,10 @@ If you have level unlock style set to "vanilla" or "checks no bosses" then you w
 If you have level unlock style set to checks or vanilla bosses, the 9 core levels (except the one in Two Up vanilla position) will need to be unlocked via checks.
 
 With progressive level on, the portals will be unlocked in standard game order, otherwise, the order may be random.
+
+#### Bilbies
+
+On being given the bilbies for a level, the bilbies will spawn in that level allowing you to break their cages. 
 
 #### Talisman
 

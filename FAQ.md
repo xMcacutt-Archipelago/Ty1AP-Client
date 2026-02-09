@@ -36,7 +36,7 @@ Assuming you're talking about an in-logic bilby, it's probably a bunyip stone so
 
 --- 
 
-## Can I turn the opal checks off?
+## Can I turn the 300 Opal Thunder Egg checks off?
 
 No, but there's an option in the mod manager codes to reduce the opal requirement
 

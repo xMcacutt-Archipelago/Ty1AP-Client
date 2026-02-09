@@ -84,6 +84,21 @@ void TrackerWindow::Draw(int outerWidth, int outerHeight, float uiScale) {
 
     ImGui::NewLine();
 
+    std::array<bool, 9> extractedBilbyBools;
+    for (size_t i = 0; i < indices.size(); ++i) {
+        extractedBilbyBools[i] = SaveDataHandler::saveData.BilbiesActive[indices[i]];
+    }
+
+    for (bool b : extractedStopwatchBools) {
+        cursorPos = ImGui::GetCursorScreenPos();
+        auto brightness = b ? 0.7f : 0.2f;
+        tintColor = ImVec4(brightness, brightness, brightness, 1.0f);
+        ImGui::ImageWithBg((ImTextureID)(intptr_t)GUI::icons["bilby"], ImVec2(iconSize, iconSize), ImVec2(0, 0), ImVec2(1, 1), ImVec4(0, 0, 0, 0), tintColor);
+        ImGui::SameLine();
+    }
+
+    ImGui::NewLine();
+
     constexpr std::array<int, 12> levelIndices = { 5, 6, 7, 8, 9, 10, 19, 12, 13, 14, 15, 20 };
     constexpr std::array<int, 9> coreLevelIndices = { 4, 5, 6, 8, 9, 10, 12, 13, 14 };
     const std::unordered_map<int, std::string> levelMapping = {
