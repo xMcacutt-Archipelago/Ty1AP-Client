@@ -89,7 +89,7 @@ void TrackerWindow::Draw(int outerWidth, int outerHeight, float uiScale) {
         extractedBilbyBools[i] = SaveDataHandler::saveData.BilbiesActive[indices[i]];
     }
 
-    for (bool b : extractedStopwatchBools) {
+    for (bool b : extractedBilbyBools) {
         cursorPos = ImGui::GetCursorScreenPos();
         auto brightness = b ? 0.7f : 0.2f;
         tintColor = ImVec4(brightness, brightness, brightness, 1.0f);
