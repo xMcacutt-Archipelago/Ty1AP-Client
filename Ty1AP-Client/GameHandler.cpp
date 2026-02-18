@@ -20,29 +20,29 @@ std::unordered_map<int, std::vector<float>> spawnpointMap{
 
 const int portalOrder[16] = {7, 5, 4, 13, 10, 23, 20, 19, 9, 21, 22, 12, 8, 6, 14, 15};
 
-typedef void(__stdcall* MainMenuFunctionType)(void);
-MainMenuFunctionType mainMenuOrigin = nullptr;
+typedef void(__stdcall* FunctionType)(void);
+FunctionType mainMenuOrigin = nullptr;
+FunctionType spawnpointOrigin = nullptr;
+FunctionType stopwatchOrigin = nullptr;
+FunctionType loadGameOrigin = nullptr;
+FunctionType menuStateOrigin = nullptr;
+FunctionType deathOrigin = nullptr;
+FunctionType loadRainbowCliffsOrigin = nullptr;
+FunctionType checkTheggsForRangsOrigin = nullptr;
+FunctionType setBilbiesVisibleOrigin = nullptr;
 
-typedef void(__stdcall* SpawnpointFunctionType)(void);
-SpawnpointFunctionType spawnpointOrigin = nullptr;
-
-typedef void(__stdcall* StopwatchFunctionType)(void);
-StopwatchFunctionType stopwatchOrigin = nullptr;
-
-typedef void(__stdcall* LoadGameFunctionType)(void);
-LoadGameFunctionType loadGameOrigin = nullptr;
-
-typedef void(__stdcall* MenuStateFunctionType)(void);
-MenuStateFunctionType menuStateOrigin = nullptr;
-
-typedef void(__stdcall* DeathFunctionType)(void);
-DeathFunctionType deathOrigin = nullptr;
-
-typedef void(__stdcall* LoadRainbowCliffsFunctionType)(void);
-LoadRainbowCliffsFunctionType loadRainbowCliffsOrigin = nullptr;
-
-typedef void(__stdcall* CheckTheggsForRangsFunctionType)(void);
-CheckTheggsForRangsFunctionType checkTheggsForRangsOrigin = nullptr;
+uintptr_t setBilbiesVisibleJmpAddr;
+uintptr_t setBilbiesVisibleOriginAddr;
+__declspec(naked) void __stdcall GameHandler::SetBilbiesVisibleHook() {
+	__asm {
+		pushad
+		pushfd
+		call GameHandler::OnSetBilbiesVisible
+		popfd
+		popad
+		jmp[setBilbiesVisibleOriginAddr]
+	}
+}
 
 uintptr_t stopwatchJmpAddr;
 uintptr_t stopwatchOriginAddr;
@@ -418,6 +418,11 @@ void GameHandler::HandleItemReceived(APClient::NetworkItem item) {
 		ItemHandler::storedItems.push(item);
 	else
 		ItemHandler::HandleItem(item);
+}
+
+void GameHandler::OnSetBilbiesVisible() {
+	auto levelId = Level::getCurrentLevel();
+	*(int*)(Core::moduleBase + 0x25357C) = SaveDataHandler::saveData.BilbiesActive[(int)levelId] ? 1 : 0;
 }
 
 void GameHandler::OnEnterCrest() {

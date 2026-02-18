@@ -126,8 +126,9 @@ void ArchipelagoHandler::ConnectAP(LoginWindow* login)
     ap->set_slot_connected_handler([login](const json& data) {
         ap_connected = true;
 
-        if (data.find("ModVersion") != data.end() || data["ModVersion"] != "1.4.0")
+        if (data.find("ModVersion") == data.end() || data["ModVersion"] != "1.4.0")
             LoggerWindow::Log("Your client and apworld versions do not match. This might be fine but please check for updates.");
+        API::LogPluginMessage(data["ModVersion"]);
 
         if (data.find("Goal") != data.end() && data["Goal"].is_number_integer())
             goal = static_cast<Goal>(data["Goal"].get<int>());
