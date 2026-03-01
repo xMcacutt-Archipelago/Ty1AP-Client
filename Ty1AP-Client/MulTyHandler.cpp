@@ -31,14 +31,28 @@ void MulTyHandler::Run() {
 
     int frameCounter = 0;
     while (IsRunning) {
+        auto level = (int)Level::getCurrentLevel();
+        bool anyoneInLevel = false;
+        for (auto const& [index, data] : MulTyHandler::posData) {
+            if (data.level == level && (MulTyHandler::GetTimeMS() - data.newTime < 5000)) {
+                anyoneInLevel = true;
+                break;
+            }
+        }
+
+        if (!anyoneInLevel) {
+            Sleep(66);
+            continue;
+        }
+
         auto vectorPos = Hero::getPosition();
         auto pos = std::vector<float>{};
         pos.push_back(vectorPos.x);
         pos.push_back(vectorPos.y);
         pos.push_back(vectorPos.z);
         pos.push_back(*(float*)(Core::moduleBase + 0x271C20)); // YAW
-        ArchipelagoHandler::SendPosition((int)Level::getCurrentLevel(), pos);
-        Sleep(50);
+        ArchipelagoHandler::SendPosition(level, pos);
+        Sleep(66);
     }
 }
 
@@ -55,6 +69,19 @@ void MulTyHandler::DisableDraw(int index) {
 
 void MulTyHandler::TryRemove(int index) {
     posData.erase(index);
+}
+
+void MulTyHandler::TrySendLevel(int level)
+{
+    if (ArchipelagoHandler::koalaIndex == -1)
+        return;
+    auto vectorPos = Hero::getPosition();
+    auto pos = std::vector<float>{};
+    pos.push_back(vectorPos.x);
+    pos.push_back(vectorPos.y);
+    pos.push_back(vectorPos.z);
+    pos.push_back(*(float*)(Core::moduleBase + 0x271C20)); // YAW
+    ArchipelagoHandler::SendPosition(level, pos);
 }
 
 void MulTyHandler::RemoveCollision() {
@@ -104,7 +131,7 @@ void MulTyHandler::InterpolateAndDraw() {
     for (const auto& [index, data] : MulTyHandler::posData) {
         //API::LogPluginMessage(std::to_string(index) + " " + std::to_string(data.level));
 
-        if (data.lastPos.size() != 4 || data.newPos.size() != 4) {
+        if (data.newPos.size() != 4) {
             continue;
         }
 
@@ -117,28 +144,26 @@ void MulTyHandler::InterpolateAndDraw() {
             DisableDraw(index);
         }
 
-        float t = (now - data.lastTime) / float(data.newTime - data.lastTime);
-        t = std::clamp(t, 0.0f, 1.0f);
+        //float t = (now - data.lastTime) / float(data.newTime - data.lastTime);
+        //t = std::clamp(t, 0.0f, 1.0f);
 
-        float x = Lerp(data.lastPos[0], data.newPos[0], t);
-        float y = Lerp(data.lastPos[1], data.newPos[1], t);
-        float z = Lerp(data.lastPos[2], data.newPos[2], t);
-        float yaw = LerpAngle(data.lastPos[3], data.newPos[3], t);
+        //float x = Lerp(data.lastPos[0], data.newPos[0], t);
+        //float y = Lerp(data.lastPos[1], data.newPos[1], t);
+        //float z = Lerp(data.lastPos[2], data.newPos[2], t);
+        //float yaw = LerpAngle(data.lastPos[3], data.newPos[3], t);
         int level = data.level;
-        
-        std::vector<float> interpolated{ x, y, z };
-        auto playerPos = Hero::getPosition();
-        std::vector<float> playerVec{ playerPos.x, playerPos.y, playerPos.z };
-        float distSq = DistanceSquared(playerVec, interpolated);
-        const float maxDistSq = 35000000000.0f;
+        //
+        //std::vector<float> interpolated{ x, y, z };
+        //auto playerPos = Hero::getPosition();
+        //std::vector<float> playerVec{ playerPos.x, playerPos.y, playerPos.z };
+        //float distSq = DistanceSquared(playerVec, interpolated);
+        //const float maxDistSq = 35000000000.0f;
 
-        if (distSq > maxDistSq) {
-            // Snap to end pos
-            x = data.newPos[0];
-            y = data.newPos[1];
-            z = data.newPos[2];
-            yaw = data.newPos[3];
-        }
+        
+        float x = data.newPos[0];
+        float y = data.newPos[1];
+        float z = data.newPos[2];
+        float yaw = data.newPos[3];
         auto modifier = (LevelCode)level == LevelCode::B2 || (LevelCode)level == LevelCode::C2 ? 2 : 1;
         auto offset = (LevelCode)level == LevelCode::B2 || (LevelCode)level == LevelCode::C2 ? 0x518 : 0x0;
         auto koalaOffset = 0x518 * modifier * index + offset;
@@ -160,9 +185,11 @@ void MulTyHandler::InterpolateAndDraw() {
         *(float*)(baseKoalaAddress + 0x2AC + koalaOffset) = z;
         *(float*)(baseKoalaAddress + 0x2B8 + koalaOffset) = yaw;
         auto position2Address = *(uintptr_t*)(baseKoalaAddress + 8 + koalaOffset);
-        *(float*)(position2Address + 0x74) = x;
-        *(float*)(position2Address + 0x78) = y;
-        *(float*)(position2Address + 0x7C) = z;
+        if (position2Address != NULL) {
+            *(float*)(position2Address + 0x74) = x;
+            *(float*)(position2Address + 0x78) = y;
+            *(float*)(position2Address + 0x7C) = z;
+        }
     }
 }
 

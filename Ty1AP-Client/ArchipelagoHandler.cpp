@@ -200,12 +200,11 @@ void ArchipelagoHandler::ConnectAP(LoginWindow* login)
         if (deathlink)
             tags.push_back("DeathLink");
         
-        ap->ConnectUpdate(false, 0b111, true, tags);
+        ap->ConnectUpdate(false, 0, true, tags);
         ap->StatusUpdate(APClient::ClientStatus::PLAYING);
         seed = ap->get_seed();
         slot = ap->get_slot();
         if (multylink) {
-            tags.push_back("MulTyLink");
             mulTyName = login->mulTyName;
             ReadKoala();
         }
@@ -260,42 +259,41 @@ void ArchipelagoHandler::ConnectAP(LoginWindow* login)
     ap->set_bounced_handler([](const json& cmd) {
         auto tagsIt = cmd.find("tags");
         auto dataIt = cmd.find("data");
-        if (multylink) {
-            if (tagsIt != cmd.end() && tagsIt->is_array()
-                && std::find(tagsIt->begin(), tagsIt->end(), "MulTyLink") != tagsIt->end())
-            {
-                if (dataIt != cmd.end() && dataIt->is_object()) {
-                    json data = *dataIt;
-                    if (data["source"].get<std::string>() != mulTyName) {
-                        std::string source = data["source"].get<std::string>().c_str();
-                        int level = data["level"].is_number_integer() ? data["level"].get<int>() : -1;
-                        if ((int)Level::getCurrentLevel() == level)
-                        {
-                            if (data.find("pos") != data.end() && data["pos"].is_array()) {
-                                auto pos = data["pos"].get<std::vector<float>>();
-                                auto it = std::find(koalaMapping.begin(), koalaMapping.end(), source);
+        if (multylink && tagsIt != cmd.end() && tagsIt->is_array()) {
+            bool correctTag = false;
+            for (auto& t : *tagsIt) {
+                std::string tagStr = t.get<std::string>();
+                if (tagStr.find("MulTyLink") == 0) {
+                    correctTag = true;
+                    break;
+                }
+            }
 
-                                if (it != koalaMapping.end()) {
-                                    int index = std::distance(koalaMapping.begin(), it);
-                                    koalaConnected[index] = ap->get_server_time();
-                                    MulTyHandler::HandlePosData(level, index, pos);
-                                }
-                            }
-                        }
-                        else {
+            if (correctTag && dataIt != cmd.end() && dataIt->is_object()) {
+                json data = *dataIt;
+                if (data["source"].get<std::string>() != mulTyName) {
+                    std::string source = data["source"].get<std::string>().c_str();
+                    int level = data["level"].is_number_integer() ? data["level"].get<int>() : -1;
+                    if ((int)Level::getCurrentLevel() == level) {
+                        if (data.find("pos") != data.end() && data["pos"].is_array()) {
+                            auto pos = data["pos"].get<std::vector<float>>();
                             auto it = std::find(koalaMapping.begin(), koalaMapping.end(), source);
 
                             if (it != koalaMapping.end()) {
                                 int index = std::distance(koalaMapping.begin(), it);
-                                MulTyHandler::DisableDraw(index);
+                                koalaConnected[index] = ap->get_server_time();
+                                MulTyHandler::HandlePosData(level, index, pos);
                             }
-                            
                         }
-
                     }
-                }
-                else {
-                    LoggerWindow::Log("Bad MulTy Pos");
+                    else {
+                        auto it = std::find(koalaMapping.begin(), koalaMapping.end(), source);
+
+                        if (it != koalaMapping.end()) {
+                            int index = std::distance(koalaMapping.begin(), it);
+                            MulTyHandler::DisableDraw(index);
+                        }
+                    }
                 }
             }
         }
@@ -497,7 +495,18 @@ void ArchipelagoHandler::SendPosition(int level, std::vector<float> pos) {
         {"source", mulTyName},
         {"pos", pos},
     };
-    ap->Bounce(data, { "Ty the Tasmanian Tiger" }, { ap->get_player_number()}, {"MulTyLink"});
+    auto tag = "MulTyLink_" + std::to_string(level);
+    ap->Bounce(data, { "Ty the Tasmanian Tiger" }, { ap->get_player_number()}, {tag});
+}
+
+void ArchipelagoHandler::TryUpdateMulTyTagForLevel(int newLevel) {
+    if (!multylink)
+        return;
+    std::list<std::string> tags;
+    tags.push_back("MulTyLink_" + std::to_string(newLevel));
+    if (deathlink)
+        tags.push_back("Deathlink");
+    ap->ConnectUpdate(false, 0, true, tags);
 }
 
 void ArchipelagoHandler::SendLevel(int levelId) {

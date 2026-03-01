@@ -73,6 +73,7 @@ public:
 	static int koalaIndex;
 	static std::string mulTyName;
 	static void UpdateKoalaIndex();
+	static void TryUpdateMulTyTagForLevel(int newLevel);
 	static std::string GetItemName(int64_t itemId);
 	static std::string GetPlayerAlias(int64_t playerId);
 	static std::string GetLocationName(int64_t locId);

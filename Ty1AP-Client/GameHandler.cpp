@@ -531,6 +531,8 @@ void GameHandler::OnEnterLevel() {
 		*(int*)(*(int*)(Core::moduleBase + 0x270420) + 0x68) = 0x2;
 
 	ArchipelagoHandler::TryClaimKoalaIndex();
+	ArchipelagoHandler::TryUpdateMulTyTagForLevel(static_cast<int>(levelId));
+	MulTyHandler::TrySendLevel(static_cast<int>(levelId));
 }
 
 void GameHandler::SetOpalIndices() {

@@ -9,7 +9,9 @@ public:
 	static void HandlePosData(int level, int index, std::vector<float> pos);
 	static void DisableDraw(int index);
 	static void TryRemove(int index);
+	static void TrySendLevel(int level);
 	static void Run();
+	static uint64_t GetTimeMS();
 	static bool IsRunning;
 private:
 	struct TimedPos {          
@@ -45,7 +47,6 @@ private:
 
 	static float Lerp(float a, float b, float t);
 	static float LerpAngle(float a, float b, float t);
-	static uint64_t GetTimeMS();
 	static float DistanceSquared(const std::vector<float>& a, const std::vector<float>& b);
 	static void RemoveCollision();
 	static void ScaleKoalas();
