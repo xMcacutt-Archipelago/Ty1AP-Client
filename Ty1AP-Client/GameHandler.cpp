@@ -30,9 +30,11 @@ FunctionType deathOrigin = nullptr;
 FunctionType loadRainbowCliffsOrigin = nullptr;
 FunctionType checkTheggsForRangsOrigin = nullptr;
 FunctionType setBilbiesVisibleOrigin = nullptr;
+FunctionType setBilbiesVisibleTAOrigin = nullptr;
 
 uintptr_t setBilbiesVisibleJmpAddr;
 uintptr_t setBilbiesVisibleOriginAddr;
+uintptr_t setBilbiesVisibleTAOriginAddr;
 __declspec(naked) void __stdcall GameHandler::SetBilbiesVisibleHook() {
 	__asm {
 		pushad
@@ -41,6 +43,17 @@ __declspec(naked) void __stdcall GameHandler::SetBilbiesVisibleHook() {
 		popfd
 		popad
 		jmp[setBilbiesVisibleOriginAddr]
+	}
+}
+
+__declspec(naked) void __stdcall GameHandler::SetBilbiesVisibleTAHook() {
+	__asm {
+		pushad
+		pushfd
+		call GameHandler::OnSetBilbiesVisible
+		popfd
+		popad
+		jmp[setBilbiesVisibleTAOriginAddr]
 	}
 }
 
@@ -223,6 +236,14 @@ void GameHandler::Setup()
 	loadRainbowCliffsOriginAddr = Core::moduleBase + 0x14D345;
 	addr = (char*)(Core::moduleBase + 0x14D33E);
 	MH_CreateHook((LPVOID)addr, &LoadRainbowCliffsHook, reinterpret_cast<LPVOID*>(&loadRainbowCliffsOrigin));
+
+	setBilbiesVisibleOriginAddr = Core::moduleBase + 0x36cab;
+	addr = (char*)(Core::moduleBase + 0x36ca4);
+	MH_CreateHook((LPVOID)addr, &SetBilbiesVisibleHook, reinterpret_cast<LPVOID*>(&setBilbiesVisibleOrigin));
+
+	setBilbiesVisibleTAOriginAddr = Core::moduleBase + 0x36f9d;
+	addr = (char*)(Core::moduleBase + 0x36f96);
+	MH_CreateHook((LPVOID)addr, &SetBilbiesVisibleTAHook, reinterpret_cast<LPVOID*>(&setBilbiesVisibleTAOrigin));
 
 	CheckHandler::SetupHooks();
 	TimeAttackHandler::SetupHooks();

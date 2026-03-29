@@ -34,12 +34,7 @@ private:
 	static void __stdcall DeathHook();
 	static void __stdcall LoadRainbowCliffsHook();
 	static void __stdcall SetBilbiesVisibleHook();
-	static void __stdcall CheckFireTheggsForRangsHook();
-	void __stdcall CheckFireTheggsForRangsWrapper();
-	static void __stdcall CheckIceTheggsForRangsHook();
-	void __stdcall CheckIceTheggsForRangsWrapper();
-	static void __stdcall CheckAirTheggsForRangsHook();
-	void __stdcall CheckAirTheggsForRangsWrapper();
+	static void __stdcall SetBilbiesVisibleTAHook();
 	static void WatchMemory();
 	static inline std::string hardDiskMessage = "Welcome to Ty Archipelago\n\n\nIf you're seeing this, everything is probably fine\nYour vanilla save files are untouched\nAutosaves occur on each check and item\n\nGood Luck\n\n\nxMcacutt\0";
 };
