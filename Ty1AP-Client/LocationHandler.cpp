@@ -99,6 +99,8 @@ void LocationHandler::HandleLocation(int64_t location)
 		for (int i = 0; i < 5; i++) {
 			auto currentBilbyIndex = *(int*)(addr);
 			if (currentBilbyIndex == bilbyIndex) {
+				*(char*)(addr + 0x31) = 0x0;
+				*(char*)(addr + 0x32) = 0x1;
 				*(int*)(addr + 0x34) = 0;
 				*(int*)(addr + 0x58) = 0;
 				return;
