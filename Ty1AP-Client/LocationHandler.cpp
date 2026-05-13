@@ -137,10 +137,22 @@ void LocationHandler::HandleLocation(int64_t location)
 		int opalId = location - (0x8750350 + (level << 0xC));
 		auto byteIndex = opalId / 8;
 		auto bitIndex = opalId % 8;
-		auto b = SaveDataHandler::saveData.LevelData[level].Opals[byteIndex];
+		auto& opals = SaveDataHandler::saveData.LevelData[level].Opals;
+		auto b = opals[byteIndex];
 		b |= 1 << bitIndex;
-		SaveDataHandler::saveData.LevelData[level].Opals[byteIndex] = b;
+		opals[byteIndex] = b;
 		SaveDataHandler::SaveGame();
+		
+		// Extra Health Check 
+		if ((LevelCode)level == LevelCode::Z1) {
+			uint32_t mask = 0;
+			for (int i = 0; i < 4; i++) {
+				mask |= ((uint32_t)opals[i] & 0xFF) << (8 * i);
+			}
+			API::LogPluginMessage(std::to_string(mask));
+			if ((mask & 0x1FFFFFF) == 0x1FFFFFF)
+				ArchipelagoHandler::Check(0x08750313);
+		}
 
 		if ((LevelCode)level != currentLevel)
 			return;
