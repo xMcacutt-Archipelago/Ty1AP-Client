@@ -102,6 +102,9 @@
     <ClInclude Include="..\apclientpp\apuuid.hpp">
       <Filter>Header Files\Dependencies</Filter>
     </ClInclude>
+    <ClInclude Include="MusicRando.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -169,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="..\imgui\misc\cpp\imgui_stdlib.cpp">
       <Filter>Source Files\Dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicRando.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 #include "gui.h"
 #include "LoginWindow.h"
 #include "MulTyHandler.h"
+#include "MusicRando.h"
 #include <inttypes.h>
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>

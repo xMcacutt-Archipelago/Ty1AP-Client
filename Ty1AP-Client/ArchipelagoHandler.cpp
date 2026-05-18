@@ -126,7 +126,7 @@ void ArchipelagoHandler::ConnectAP(LoginWindow* login)
     ap->set_slot_connected_handler([login](const json& data) {
         ap_connected = true;
 
-        if (data.find("ModVersion") == data.end() || data["ModVersion"] != "1.4.0")
+        if (data.find("ModVersion") == data.end() || data["ModVersion"] != "1.5")
             LoggerWindow::Log("Your client and apworld versions do not match. This might be fine but please check for updates.");
         API::LogPluginMessage(data["ModVersion"]);
 
@@ -195,6 +195,9 @@ void ArchipelagoHandler::ConnectAP(LoginWindow* login)
 
         if (data.find("AdvancedLogic") != data.end() && data["AdvancedLogic"].is_number_integer())
             advancedLogic = data["AdvancedLogic"].get<int>() == 1;
+
+        if (data.find("MusicRando") != data.end())
+            MusicRando::TriggerShuffle(seed);
 
         std::list<std::string> tags = {};
         if (deathlink)
